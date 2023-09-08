@@ -45,11 +45,10 @@
         </div>
       </div>
     </footer>
-  </template>
+</template>
+<script></script>
   
-  <script></script>
-  
-  <style scoped>
+<style scoped>
   footer {
     display: flex;
     flex-direction: column;
@@ -79,4 +78,4 @@
   .author {
     font-size: 12px;
   }
-  </style>
+</style>
