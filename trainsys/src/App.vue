@@ -1,7 +1,11 @@
 <template>
-  <Header />
-  <router-view></router-view>
-  <Footer />
+  <v-app>
+    <Header />
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+    <Footer />
+  </v-app>
 </template>
 
 <script>
@@ -15,5 +19,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
