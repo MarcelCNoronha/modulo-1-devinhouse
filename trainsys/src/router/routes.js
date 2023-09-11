@@ -14,6 +14,7 @@ export const routes = createRouter({
       path: '/login',
       name: 'login',
       component: Login
-    }
+    },
+    
   ]
 })
