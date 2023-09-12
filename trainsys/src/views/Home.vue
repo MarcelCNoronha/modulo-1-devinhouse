@@ -1,6 +1,5 @@
 <template>
   <v-row class="mt-15 mx-3">
-asas
   </v-row>
 </template>
 

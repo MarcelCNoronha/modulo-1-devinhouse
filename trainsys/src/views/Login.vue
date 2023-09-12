@@ -1,94 +1,66 @@
 <template>
-  <v-container fluid>
-    <v-row justify="center">
-      <v-col cols="12" sm="8" md="6">
-        <v-card class="pa-4">
-          <v-form @submit.prevent="handleLogin">
-            <v-text-field
-              v-model="email"
-              label="Email"
-              outlined
-              :error-messages="errorInputEmail"
-              required
-              class="text-center" 
-            ></v-text-field>
-            <v-text-field
-              v-model="password"
-              label="Password"
-              outlined
-              :error-messages="errorInputPassword"
-              required
-              type="password"
-              class="text-center" 
-            ></v-text-field>
-            <v-btn type="submit" block color="primary" class="mx-auto" size="large"
-            density="default"
-            >Logar</v-btn>
-          </v-form>
-          <v-alert
-            v-if="loginError"
-            type="error"
-            dismissible
-          >
-            Falha ao realizar login
-          </v-alert>
-          <v-divider></v-divider>
-          <div class="text-center mt-2">
-            <p>Ainda não tem conta? <router-link to="/cadastro">Cadastre-se</router-link></p>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
+  <v-container>
+    <v-form @submit.prevent="handleLogin">
+      <v-row justify="center">
+        <v-col cols="12" sm="8" md="6">
+          <v-card class="pa-4 elevation-10">
+            <v-card-title class="text-center">
+              <v-img src="@/assets/logo.png" max-width="100" contain></v-img>
+              <h2 class="headline">Faça Login</h2>
+            </v-card-title>
+
+            <v-card-text>
+              <v-text-field
+                v-model="email"
+                label="E-mail"
+                outlined
+              ></v-text-field>
+              <v-text-field
+                v-model="password"
+                label="Senha"
+                type="password"
+                outlined
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn type="submit" color="primary" class="mx-auto">
+                Login
+              </v-btn>
+            </v-card-actions>
+            <v-card-actions>
+              <div class="text-center">
+                Ainda não tem conta?
+                <router-link to="/cadastrar">Cadastre-se</router-link>
+              </div>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-form>
+>>>>>>> userRegistration
   </v-container>
 </template>
 
 
 <script>
-import axios from 'axios'
+
+import axios from "axios";
 
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      errorInputEmail: '',
-      errorInputPassword: '',
-      loginError: false,
-    }
+      email: "",
+      password: "",
+    };
   },
   methods: {
-    handleLogin() {
-      this.errorInputEmail = ''
-      this.errorInputPassword = ''
-      this.loginError = false
+    login() {},
 
-      if (!this.email) this.errorInputEmail = 'Digite o email'
-      if (!this.password) this.errorInputPassword = 'Digite a senha'
-
-      if (!this.errorInputEmail && !this.errorInputPassword) {
-        axios({
-          url: 'http://localhost:3000/api/login',
-          method: 'POST',
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        })
-        .then((response) => {
-          localStorage.setItem("instagram_token", response.data.token)
-          localStorage.setItem("instagram_name", response.data.name)
-          this.$router.push('/home')
-          console.log("logado com sucesso")
-        })
-        .catch(() => {
-          this.loginError = true
-        })
-      }
-    },
   },
 }
 </script>
 
-<style scoped>
 
-</style>
+=======
+<style scoped></style>
+
