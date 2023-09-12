@@ -2,6 +2,7 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
+import * as yup from 'yup';
 
 // rotas
 import {routes} from '@/router/routes.js'
