@@ -20,7 +20,7 @@ export const routes = createRouter({
       component: Login
     },
     {
-      path: '/users',
+      path: '/cadastro-usuario',
       name: 'users',
       component: Users
     },
@@ -30,7 +30,7 @@ export const routes = createRouter({
       component: Dashboard
     },
     {
-      path: '/exercises',
+      path: '/cadastro-exercicio',
       name: 'exercises',
       component: Exercises
     },
