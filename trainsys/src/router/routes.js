@@ -3,6 +3,8 @@ import Home from "../views/Home.vue"
 import Login from "../views/Login.vue"
 import Users from "../views/Users.vue"
 import Dashboard from "../views/Dashboard.vue"
+import Exercises from "../views/Exercises.vue"
+
 
 export const routes = createRouter({
   history: createWebHistory(),
@@ -26,6 +28,11 @@ export const routes = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard
+    },
+    {
+      path: '/exercises',
+      name: 'exercises',
+      component: Exercises
     },
 
   ]
