@@ -2,13 +2,12 @@
   <v-container>
     <v-form @submit.prevent="handleLogin">
       <v-row justify="center">
-        <v-col cols="12" sm="8" md="6">
+        <v-col cols="8" sm="8" md="6">
           <v-card class="pa-4 elevation-10">
             <v-card-title class="text-center">
               <v-img src="@/assets/logo.png" max-width="100" contain></v-img>
               <h2 class="headline">Faça Login</h2>
             </v-card-title>
-
             <v-card-text>
               <v-text-field
                 v-model="email"
@@ -37,10 +36,8 @@
         </v-col>
       </v-row>
     </v-form>
->>>>>>> userRegistration
   </v-container>
 </template>
-
 
 <script>
 

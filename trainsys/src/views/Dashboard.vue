@@ -1,16 +1,15 @@
 <template>
-    <v-app>
       <v-container>
-        <v-row>
-          <v-col cols="12">
+        <v-row justify="center">
+          <v-col cols="8">
             <v-card>
               <v-card-title class="headline">Bem vindo, {{ usuarioLogado }}</v-card-title>
             </v-card>
           </v-col>
         </v-row>
   
-        <v-row>
-          <v-col cols="6">
+        <v-row justify="center">
+          <v-col cols="4">
             <v-card>
               <v-card-title class="headline">Alunos</v-card-title>
               <v-card-text>
@@ -25,7 +24,7 @@
             </v-card>
           </v-col>
   
-          <v-col cols="6">
+          <v-col cols="4">
             <v-card>
               <v-card-title class="headline">Exercícios</v-card-title>
               <v-card-text>
@@ -41,7 +40,6 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-app>
   </template>
   
   <script>
