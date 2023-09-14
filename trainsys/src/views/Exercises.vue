@@ -8,7 +8,6 @@
         <v-card-title class="headline">Exercícios</v-card-title>
       </v-col>
     </v-row>
-
     <v-row justify="center">
       <v-col cols="12">
         <v-card>
