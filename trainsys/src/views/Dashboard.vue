@@ -68,32 +68,51 @@
 
 <script>
 import axios from 'axios';
-import { VRow } from 'vuetify/lib/components/index.mjs';
 
 export default {
-    data() {
-        return {
-            usuarioLogado: "Nome do Usuário",
-            numeroAlunos: 0,
-            numeroExercicios: 0,
-        };
-    },
-    methods: {
-        carregarDadosDashboard() {
-            axios.get('/dashboard')
-                .then((response) => {
-                this.numeroAlunos = response.data.numeroAlunos;
-                this.numeroExercicios = response.data.numeroExercicios;
-                this.usuarioLogado = response.data.usuarioLogado;
-            })
-                .catch((error) => {
-                console.error(error);
-            });
+  data() {
+    return {
+      usuarioLogado: "Nome do Usuário",
+      numeroAlunos: 0,
+      numeroExercicios: 0,
+    };
+  },
+  methods: {
+    loadDashboardData() {
+      const token = localStorage.getItem("exercises_token"); 
+
+      axios({
+        url: "http://localhost:3000/exercises",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
+      })
+        .then((response) => {
+          this.numeroExercicios = response.data.length;
+        })
+        .catch(() => {
+          alert("Ocorreu um erro ao buscar os exercícios");
+        });
+      axios({
+        url: "http://localhost:3000/students",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          this.numeroAlunos = response.data.length; 
+        })
+        .catch(() => {
+          alert("Ocorreu um erro ao buscar os alunos");
+        });
+
+      this.usuarioLogado = "Nome do Usuário"; 
     },
-    created() {
-        this.carregarDadosDashboard();
-    },
-    components: { VRow }
+  },
+  mounted() {
+    this.loadDashboardData(); 
+  },
 };
 </script>
