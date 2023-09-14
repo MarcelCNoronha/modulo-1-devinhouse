@@ -4,6 +4,7 @@ import Login from "../views/Login.vue"
 import Users from "../views/Users.vue"
 import Dashboard from "../views/Dashboard.vue"
 import Exercises from "../views/Exercises.vue"
+import StudentList from "../views/StudentList.vue"
 
 
 export const routes = createRouter({
@@ -20,7 +21,7 @@ export const routes = createRouter({
       component: Login
     },
     {
-      path: '/users',
+      path: '/cadastro-usuario',
       name: 'users',
       component: Users
     },
@@ -30,9 +31,14 @@ export const routes = createRouter({
       component: Dashboard
     },
     {
-      path: '/exercises',
+      path: '/cadastro-exercicio',
       name: 'exercises',
       component: Exercises
+    },
+    {
+      path: '/lista-alunos',
+      name: 'StudentList',
+      component: StudentList
     },
 
   ]
