@@ -24,15 +24,7 @@
                 outlined
                 :error-messages="errors.email"
                 required
-              ></v-text-field>
-
-              <v-text-field
-                v-model="phone"
-                label="Telefone"
-                outlined
-                :error-messages="errors.phone"
-                required
-              ></v-text-field>
+              ></v-text-field>     
 
               <v-text-field
                 v-model="password"
@@ -53,7 +45,7 @@
               ></v-text-field>
 
               <v-select
-                v-model="sponsor"
+                v-model="type_plan"
                 :items="['bronze', 'silver', 'gold']"
                 label="plano"
                 outlined
@@ -86,10 +78,9 @@ export default {
     return {
       name: "",
       email: "",
-      phone: "",
       password: "",
       verifyPassword: "",
-      sponsor: "",
+      type_plan: "",
       errors: {},
     };
   },
@@ -103,7 +94,6 @@ export default {
             .string()
             .email("Email não é valido")
             .required("Email é obrigatório"),
-          phone: yup.string().required("Telefone é obrigatório"),
           password: yup
             .string()
             .min(8, "A senha deve ser maior")
@@ -113,17 +103,16 @@ export default {
             .string()
             .required("A confirmação necessária")
             .oneOf([yup.ref("password")], "As senhas devem coincidir"),
-          confirmTerms: yup.boolean().isTrue("O termo de uso deve ser aceito"),
+            type_plan: yup.string().required("O plano é obrigatório"),
         });
 
         schema.validateSync(
           {
             name: this.name,
             email: this.email,
-            phone: this.phone,
             password: this.password,
             verifyPassword: this.verifyPassword,
-            confirmTerms: this.confirmTerms,
+            type_plan: this.type_plan,
           },
           { abortEarly: false } // importante
         );
@@ -131,19 +120,18 @@ export default {
         // Cadastro de usuario
 
         axios({
-          url: "http://localhost:3000/api/register",
+          url: "http://localhost:3000/users",
           method: "POST",
           data: {
             name: this.name,
             email: this.email,
-            contact: this.phone,
             password: this.password,
-            sponsor: this.sponsor,
+            type_plan: this.type_plan,
           },
         })
           .then(() => {
             alert("Cadastrado com sucesso");
-            this.$router.push("/");
+            this.$router.push("/login");
           })
           .catch((error) => {
             console.log(error);
