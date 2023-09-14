@@ -16,78 +16,99 @@
             <v-form>
               <v-row align="center" class="align-center">
                 <v-col cols="10">
-                  <v-text-field v-model="novoItem" label="Digite o nome do exercício" class="custom-text-field"></v-text-field>
+                  <v-text-field
+                    v-model="newExercise"
+                    label="Digite o nome do exercício"
+                    class="custom-text-field"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="2">
-                  <v-btn @click="adicionarItem" color="primary" class="mx-auto">
+                  <v-btn @click="addItem" color="primary" class="mx-auto">
                     Cadastrar
                   </v-btn>
                 </v-col>
               </v-row>
             </v-form>
           </v-card-text>
-          <v-card-text>
-            <v-data-table :headers="headers" :items="itens" item-key="id">
-              <template v-slot:item.description="{ item }">
-                {{ item.description }}
-              </template>
-            </v-data-table>
-          </v-card-text>
         </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <v-table>
+          <thead>
+            <tr>
+              <th class="text-left">Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="exercises in exercises" :key="exercises.id">
+              <td>{{ exercises.description }}</td>
+            </tr>
+          </tbody>
+        </v-table>
       </v-col>
     </v-row>
   </v-container>
 </template>
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        novoItem: "",
-        itens: [],
-        headers: [
-          {
-            text: 'Descrição',
-            value: 'description'
-          }
-        ]
-      };
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      newExercise: "",
+      exercises: [],
+    };
+  },
+  methods: {
+    addItem() {
+      const token = localStorage.getItem("exercises_token");
+
+      axios({
+        url: "http://localhost:3000/exercises",
+        method: "post",
+        data: {
+          description: this.newExercise,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(() => {
+          alert("Cadastro com sucesso");
+          this.newExercise = "";
+        })
+        .catch(() => {
+          alert("Houve um erro ao realizar o cadastro");
+        });
+      this.loadExercises();
     },
-    methods: {
-      adicionarItem() {
-        if (this.novoItem.trim() !== "") {
-          axios.post('/api/adicionar-exercicio', { description: this.novoItem })
-            .then((response) => {
-              console.log(response.data);
-              this.itens.push({ description: this.novoItem });
-              this.novoItem = "";
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        }
-      },
-      carregarExercicios() {
-        axios.get('/api/listar-exercicios')
-          .then((response) => {
-           
-            this.itens = response.data;
-          })
-          .catch((error) => {
-           
-            console.error(error);
-          });
-      },
+    loadExercises() {
+      const token = localStorage.getItem("exercises_token");
+
+      axios({
+        url: "http://localhost:3000/exercises",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          this.exercises = response.data;
+        })
+        .catch(() => {
+          alert("Ocorreu um erro ao buscar os exercícios");
+        });
     },
-    created() {
-      this.carregarExercicios();
-    },
-  };
-  </script>
-  <style scoped>
-  .custom-text-field {
-    height: 60px; 
-  }
-  </style>
+  },
+  mounted() {
+    this.loadExercises();
+  },
+};
+</script>
+
+<style scoped>
+</style>
