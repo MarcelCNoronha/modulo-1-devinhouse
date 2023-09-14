@@ -50,14 +50,40 @@ export default {
       password: "",
     };
   },
-  methods: {
-    login() {},
+  methods: {handleLogin() {
+      this.errorInputEmail = ''
+      this.errorInputPassword = ''
 
-  },
+      if (this.email === '') this.errorInputEmail = 'Digite o email'
+      if (this.password === '') this.errorInputPassword = 'Digite a senha'
+
+      if (this.errorInputEmail === '' && this.errorInputPassword === '') {
+        
+        axios({
+          url: 'http://localhost:3000/sessions',
+          method: 'POST',
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+        .then((response) => {
+          
+          localStorage.setItem("sessions_token", response.data.token)
+          localStorage.setItem("sessions_name", response.data.name)
+
+          this.$router.push('/dashboard')
+          console.log("logado com sucesso")
+        })
+        .catch(() => {
+          alert("Falha ao realizar login")
+        })
+
+      }
+    },
+  }
 }
 </script>
 
-
-=======
 <style scoped></style>
 

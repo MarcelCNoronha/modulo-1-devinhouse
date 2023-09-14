@@ -72,15 +72,15 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      usuarioLogado: "Nome do Usuário",
+      usuarioLogado:"",
       numeroAlunos: 0,
       numeroExercicios: 0,
     };
   },
+
   methods: {
     loadDashboardData() {
       const token = localStorage.getItem("exercises_token"); 
-
       axios({
         url: "http://localhost:3000/exercises",
         method: "GET",
@@ -107,12 +107,11 @@ export default {
         .catch(() => {
           alert("Ocorreu um erro ao buscar os alunos");
         });
-
-      this.usuarioLogado = "Nome do Usuário"; 
     },
   },
   mounted() {
     this.loadDashboardData(); 
+    this.usuarioLogado = localStorage.getItem("sessions_name");
   },
 };
 </script>
