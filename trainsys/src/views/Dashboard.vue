@@ -1,64 +1,63 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="8">
+      <v-col cols="10">
         <v-card>
-          <v-card-title class="headline">Bem vindo, {{ usuarioLogado }}</v-card-title>
+          <v-card-title class="headline"
+            >Bem vindo, {{ usuarioLogado }}</v-card-title
+          >
         </v-card>
       </v-col>
     </v-row>
 
     <v-row justify="center">
-      <v-col cols="4">
+      <v-col cols="5">
         <v-card>
           <v-row>
             <v-col cols="8">
               <v-card-text class="d-flex align-center">
-              <v-card-title class="headline">Alunos</v-card-title>
-            <div class="text-h2">{{ numeroAlunos }}</div>
-          </v-card-text>
+                <v-card-title class="headline">Alunos</v-card-title>
+                <div class="text-h2">{{ numeroAlunos }}</div>
+              </v-card-text>
             </v-col>
 
             <v-col cols="4">
-              <v-avatar size="100">
-              <v-icon size="100">mdi-account-supervisor</v-icon>
-            </v-avatar>
+              <v-avatar size="80">
+                <v-icon size="80">mdi-account-supervisor</v-icon>
+              </v-avatar>
             </v-col>
           </v-row>
           <v-row>
             <v-card-actions>
               <router-link to="/cadastro-aluno">
-              <v-btn color="primary">Cadastrar Aluno</v-btn>
-            </router-link>
-          </v-card-actions>
+                <v-btn color="primary">Cadastrar Aluno</v-btn>
+              </router-link>
+            </v-card-actions>
           </v-row>
         </v-card>
       </v-col>
 
- 
-
-      <v-col cols="4">
+      <v-col cols="5">
         <v-card>
           <v-row>
             <v-col cols="8">
               <v-card-text class="d-flex align-center">
-              <v-card-title class="headline">Exercícios</v-card-title>
-            <div class="text-h2">{{ numeroExercicios }}</div>
-          </v-card-text>
+                <v-card-title class="headline">Exercícios</v-card-title>
+                <div class="text-h2">{{ numeroExercicios }}</div>
+              </v-card-text>
             </v-col>
-
             <v-col cols="4">
-              <v-avatar size="100">
-              <v-icon size="100">mdi-dumbbell</v-icon>
-            </v-avatar>
+              <v-avatar size="80">
+                <v-icon size="80">mdi-dumbbell</v-icon>
+              </v-avatar>
             </v-col>
           </v-row>
           <v-row>
             <v-card-actions>
-            <router-link to="/cadastro-exercicio">
-              <v-btn color="primary">Cadastrar Exercício</v-btn>
-            </router-link>
-          </v-card-actions>
+              <router-link to="/cadastro-exercicio">
+                <v-btn color="primary">Cadastrar Exercício</v-btn>
+              </router-link>
+            </v-card-actions>
           </v-row>
         </v-card>
       </v-col>
@@ -67,12 +66,12 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
-      usuarioLogado:"",
+      usuarioLogado: "",
       numeroAlunos: 0,
       numeroExercicios: 0,
     };
@@ -80,37 +79,22 @@ export default {
 
   methods: {
     loadDashboardData() {
-      const token = localStorage.getItem("exercises_token"); 
       axios({
-        url: "http://localhost:3000/exercises",
+        url: "http://localhost:3000/dashboard",
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       })
         .then((response) => {
-          this.numeroExercicios = response.data.length;
+          this.numeroAlunos = response.data.amount_students;
+          this.numeroExercicios = response.data.amount_exercises;
         })
         .catch(() => {
-          alert("Ocorreu um erro ao buscar os exercícios");
-        });
-      axios({
-        url: "http://localhost:3000/students",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          this.numeroAlunos = response.data.length; 
-        })
-        .catch(() => {
-          alert("Ocorreu um erro ao buscar os alunos");
+          alert("Ocorreu um erro ao buscar os dados do dashboard");
         });
     },
   },
+
   mounted() {
-    this.loadDashboardData(); 
+    this.loadDashboardData();
     this.usuarioLogado = localStorage.getItem("sessions_name");
   },
 };

@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     addItem() {
-      const token = localStorage.getItem("exercises_token");
+      const exercises_token = localStorage.getItem("exercises_token");
 
       axios({
         url: "http://localhost:3000/exercises",
@@ -73,7 +73,7 @@ export default {
           description: this.newExercise,
         },
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${exercises_token}`,
         },
       })
         .then(() => {
