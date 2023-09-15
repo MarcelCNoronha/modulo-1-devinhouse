@@ -5,7 +5,7 @@
         <v-col cols="8" sm="8" md="6">
           <v-card class="pa-4 elevation-10">
             <v-card-title class="text-center">
-              <v-img src="@/assets/logo.png" max-width="100" contain></v-img>
+              <h2 class="text-uppercase mb-5" style="font-style: italic;">TRAINSYS</h2>
               <h2 class="headline">Faça Login</h2>
             </v-card-title>
             <v-card-text>
@@ -21,11 +21,11 @@
                 outlined
               ></v-text-field>
             </v-card-text>
-            <v-card-actions>
-              <v-btn type="submit" color="primary" class="mx-auto">
-                Login
-              </v-btn>
-            </v-card-actions>
+
+            <div class="d-flex justify-center">
+              <v-btn type="submit" color="primary"> Login </v-btn>
+            </div>
+
             <v-card-actions>
               <div class="text-center">
                 Ainda não tem conta?
@@ -40,7 +40,6 @@
 </template>
 
 <script>
-
 import axios from "axios";
 
 export default {
@@ -50,40 +49,37 @@ export default {
       password: "",
     };
   },
-  methods: {handleLogin() {
-      this.errorInputEmail = ''
-      this.errorInputPassword = ''
+  methods: {
+    handleLogin() {
+      this.errorInputEmail = "";
+      this.errorInputPassword = "";
 
-      if (this.email === '') this.errorInputEmail = 'Digite o email'
-      if (this.password === '') this.errorInputPassword = 'Digite a senha'
+      if (this.email === "") this.errorInputEmail = "Digite o email";
+      if (this.password === "") this.errorInputPassword = "Digite a senha";
 
-      if (this.errorInputEmail === '' && this.errorInputPassword === '') {
-        
+      if (this.errorInputEmail === "" && this.errorInputPassword === "") {
         axios({
-          url: 'http://localhost:3000/sessions',
-          method: 'POST',
+          url: "http://localhost:3000/sessions",
+          method: "POST",
           data: {
             email: this.email,
-            password: this.password
-          }
+            password: this.password,
+          },
         })
-        .then((response) => {
-          
-          localStorage.setItem("sessions_token", response.data.token)
-          localStorage.setItem("sessions_name", response.data.name)
+          .then((response) => {
+            localStorage.setItem("sessions_token", response.data.token);
+            localStorage.setItem("sessions_name", response.data.name);
 
-          this.$router.push('/dashboard')
-          console.log("logado com sucesso")
-        })
-        .catch(() => {
-          alert("Falha ao realizar login")
-        })
-
+            this.$router.push("/dashboard");
+            console.log("logado com sucesso");
+          })
+          .catch(() => {
+            alert("Falha ao realizar login");
+          });
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped></style>
-

@@ -5,7 +5,7 @@
         <v-col cols="12" sm="8" md="6">
           <v-card class="pa-4 elevation-10">
             <v-card-title class="text-center">
-              <v-img src="@/assets/logo.png" max-width="100" contain></v-img>
+              <h2 class="text-uppercase mb-5" style="font-style: italic;">TRAINSYS</h2>
               <h2 class="text-center">Criar conta</h2>
             </v-card-title>
 
