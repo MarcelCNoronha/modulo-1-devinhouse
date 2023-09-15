@@ -71,8 +71,9 @@
               :error-messages="errors.cep"
               required
               clearable
-            ></v-text-field
-          ></v-col>
+              @input="searchCep"
+            ></v-text-field>
+            </v-col>
           <v-col cols="6">
             <v-text-field
               v-model="street"
@@ -84,7 +85,6 @@
             ></v-text-field>
           </v-col>
         </v-row>
-
 
         <v-row>
           <v-col cols="6">
@@ -110,8 +110,8 @@
           </v-col>
         </v-row>
 
-      <v-row>
-        <v-col cols="4">
+        <v-row>
+          <v-col cols="4">
             <v-text-field
               v-model="neighborhood"
               label="Bairro"
@@ -121,7 +121,7 @@
               clearable
             ></v-text-field>
           </v-col>
-        <v-col cols="4">
+          <v-col cols="4">
             <v-text-field
               v-model="number"
               label="Numero"
@@ -142,14 +142,11 @@
               clearable
             ></v-text-field>
           </v-col>
-      </v-row>
+        </v-row>
 
-      <v-card-actions>
-              <v-btn type="submit" color="primary" class="mx-auto"
-                >Cadastrar</v-btn
-              >
-            </v-card-actions>
-
+        <v-card-actions>
+          <v-btn type="submit" color="primary" class="mx-auto">Cadastrar</v-btn>
+        </v-card-actions>
       </v-form>
     </v-card>
   </v-container>
@@ -177,7 +174,7 @@ export default {
     };
   },
   methods: {
-    handleCreateStudent() { 
+    handleCreateStudent() {
       try {
         // 1 - CRIAR SCHEMA VALIDATION
         const schema = yup.object().shape({
@@ -206,7 +203,7 @@ export default {
         );
 
         // Cadastro de usuario
-        const students_token = localStorage.getItem("students_token")
+        const students_token = localStorage.getItem("students_token");
 
         axios({
           url: "http://localhost:3000/students",
@@ -225,8 +222,8 @@ export default {
             complement: this.complement,
           },
           headers: {
-          Authorization: `Bearer ${students_token}`,
-        },
+            Authorization: `Bearer ${students_token}`,
+          },
         })
           .then(() => {
             alert("Aluno cadastrado com sucesso");
@@ -246,6 +243,52 @@ export default {
           // capturar os errors do yup
           this.errors = captureErrorYup(error);
         }
+      }
+    },
+    searchCep() {if (this.cep && this.cep.length >= 8) {
+        try {
+          const schema = yup.object().shape({
+            cep: yup.string().required("CEP é obrigatório"),
+          });
+
+          schema.validateSync(
+            {
+              cep: this.cep,
+            },
+            { abortEarly: false }
+          );
+
+          axios({
+            url: `https://viacep.com.br/ws/${this.cep}/json/`,
+            method: "GET",
+          })
+            .then((response) => {
+              const data = response.data;
+
+              this.street = data.logradouro || "";
+              this.province = data.uf || "";
+              this.neighborhood = data.bairro || "";
+              this.city = data.localidade || "";
+ 
+              this.errors.cep = [];
+              this.cepComplete = true; 
+            })
+            .catch(() => {
+              alert("Ocorreu um erro ao buscar os dados do CEP");
+              this.cepComplete = false;
+            });
+        } catch (error) {
+          if (error instanceof yup.ValidationError) {
+            console.log(error);
+            this.errors = captureErrorYup(error);
+          }
+        }
+      } else {
+        this.cepComplete = false;
+        this.street = "";
+        this.province = "";
+        this.neighborhood = "";
+        this.city = "";
       }
     },
   },
