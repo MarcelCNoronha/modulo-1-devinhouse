@@ -29,7 +29,7 @@
             <v-card-actions>
               <div class="text-center">
                 Ainda não tem conta?
-                <router-link to="/cadastrar">Cadastre-se</router-link>
+                <router-link to="/cadastro-usuario">Cadastre-se</router-link>
               </div>
             </v-card-actions>
           </v-card>
