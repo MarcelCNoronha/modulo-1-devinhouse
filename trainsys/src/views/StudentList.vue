@@ -8,7 +8,7 @@
       </v-avatar>
       <v-card-title class="headline ml-2">Alunos</v-card-title>
     </div>
-    <v-btn to="/cadastrar-aluno" color="primary">
+    <v-btn to="/cadastro-aluno" color="primary">
       Novo
     </v-btn>
   </v-col>
