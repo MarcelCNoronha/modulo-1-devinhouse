@@ -5,7 +5,9 @@
         <v-col cols="12" sm="8" md="6">
           <v-card class="pa-4 elevation-10">
             <v-card-title class="text-center">
-              <h2 class="text-uppercase mb-5" style="font-style: italic;">TRAINSYS</h2>
+              <h2 class="text-uppercase mb-5" style="font-style: italic">
+                TRAINSYS
+              </h2>
               <h2 class="text-center">Criar conta</h2>
             </v-card-title>
 
@@ -24,7 +26,7 @@
                 outlined
                 :error-messages="errors.email"
                 required
-              ></v-text-field>     
+              ></v-text-field>
 
               <v-text-field
                 v-model="password"
@@ -52,15 +54,18 @@
               ></v-select>
             </v-card-text>
 
-            <v-card-actions>
-              <v-btn type="submit" color="primary" class="mx-auto"
-                >Cadastrar</v-btn
-              >
-
-              <v-btn text color="primary" class="mx-auto"
-                ><router-link to="/">Voltar</router-link></v-btn
-              >
-            </v-card-actions>
+            <v-row>
+              <v-col class="text-center">
+                <v-btn type="submit" color="primary" class="mx-3"
+                  >Cadastrar</v-btn
+                >
+                <router-link to="/login"
+                  ><v-btn text color="primary" class="mx-3"
+                    >Voltar</v-btn
+                  ></router-link
+                >
+              </v-col>
+            </v-row>
           </v-card>
         </v-col>
       </v-row>
@@ -103,7 +108,7 @@ export default {
             .string()
             .required("A confirmação necessária")
             .oneOf([yup.ref("password")], "As senhas devem coincidir"),
-            type_plan: yup.string().required("O plano é obrigatório"),
+          type_plan: yup.string().required("O plano é obrigatório"),
         });
 
         schema.validateSync(

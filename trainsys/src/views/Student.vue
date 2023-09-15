@@ -143,10 +143,12 @@
             ></v-text-field>
           </v-col>
         </v-row>
-
-        <v-card-actions>
-          <v-btn type="submit" color="primary" class="mx-auto">Cadastrar</v-btn>
-        </v-card-actions>
+        <v-row>
+          <v-col class="text-center">
+            <v-btn type="submit" color="primary" class="mb-5">Cadastrar</v-btn>
+          </v-col>
+        </v-row>
+          
       </v-form>
     </v-card>
   </v-container>
