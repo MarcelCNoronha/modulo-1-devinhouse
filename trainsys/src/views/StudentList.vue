@@ -98,10 +98,10 @@ export default {
       }
     },
     redirecionarMontarTreino(id) {
-      this.$router.push({ path: `/workouts/${id}` });
+      this.$router.push({ path: `/cadastro-treino/${id}` });
     },
     redirecionarAluno(id) {
-      this.$router.push({ path: `/workouts/check/${id}` });
+      this.$router.push({ path: `/visualizar-treinos/${id}` });
     },
   },
   mounted() {

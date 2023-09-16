@@ -6,6 +6,8 @@ import Dashboard from "../views/Dashboard.vue"
 import Exercises from "../views/Exercises.vue"
 import StudentList from "../views/StudentList.vue"
 import Student from "../views/Student.vue"
+import Workouts from "../views/Workouts.vue"
+
 
 
 export const routes = createRouter({
@@ -45,6 +47,11 @@ export const routes = createRouter({
       path: '/cadastro-aluno',
       name: 'Student',
       component: Student
+    },
+    {
+      path: '/cadastro-treino/:student_id',
+      name: 'Workouts',
+      component: Workouts
     },
 
   ]
