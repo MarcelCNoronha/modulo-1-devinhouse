@@ -18,14 +18,14 @@
             <v-row>
               <v-col cols="10">
                 <v-text-field
-                  v-model="busca"
+                  v-model="search"
                   label="Buscar por nome"
-                  :error-messages="errors.busca"
+                  :error-messages="errors.search"
                   outlined
                 ></v-text-field>
               </v-col>
               <v-col cols="2" class="text-right">
-                <v-btn @click="filtrarAlunos" color="primary"> Buscar </v-btn>
+                <v-btn @click="filterStudents" color="primary"> Buscar </v-btn>
               </v-col>
             </v-row>
             <v-table>
@@ -73,12 +73,12 @@ export default {
   data() {
     return {
       students: [],
-      busca: "",
+      search: "",
       errors: {},
     };
   },
   methods: {
-    carregarAlunos() {
+    loadStudents() {
       const students_token = localStorage.getItem("students_token");
 
       axios({
@@ -96,29 +96,28 @@ export default {
         });
     },
 
-filtrarAlunos() {
-  try {
-    const schema = yup.object().shape({
-      busca: yup.string().min(1,"A busca não pode ser vazio"),
-});
-schema.validateSync(
-      {
-        busca: this.busca,
-      },
-      { abortEarly: false }
-    );
-    
-      this.students = this.students.filter((student) =>
-      student.name.toLowerCase().includes(this.busca.toLowerCase())
-    )
-       
-  } catch (error) {
-    if (error instanceof yup.ValidationError) {
-      console.log(error);
-      this.errors = captureErrorYup(error);
-    }
-  }
-},
+    filterStudents() {
+      try {
+        const schema = yup.object().shape({
+          search: yup.string().min(1, "A busca não pode ser vazio"),
+        });
+        schema.validateSync(
+          {
+            search: this.search,
+          },
+          { abortEarly: false }
+        );
+
+        this.students = this.students.filter((student) =>
+          student.name.toLowerCase().includes(this.search.toLowerCase())
+        );
+      } catch (error) {
+        if (error instanceof yup.ValidationError) {
+          console.log(error);
+          this.errors = captureErrorYup(error);
+        }
+      }
+    },
     redirecionarMontarTreino(id) {
       this.$router.push({ path: `/cadastro-treino/${id}` });
     },
@@ -127,7 +126,7 @@ schema.validateSync(
     },
   },
   mounted() {
-    this.carregarAlunos();
+    this.loadStudents();
   },
 };
 </script>

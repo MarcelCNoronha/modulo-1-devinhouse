@@ -23,9 +23,7 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="2" class="text-right">
-                  <v-btn @click="addItem" color="primary">
-                    Cadastrar
-                  </v-btn>
+                  <v-btn @click="addItem" color="primary"> Cadastrar </v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -68,9 +66,9 @@ export default {
   },
   methods: {
     addItem() {
-      try{
+      try {
         const schema = yup.object().shape({
-          newExercise: yup.string().min(1,"O exercicio não pode ser vazio"),
+          newExercise: yup.string().min(1, "O exercicio não pode ser vazio"),
         });
         schema.validateSync(
           {
@@ -79,29 +77,30 @@ export default {
           { abortEarly: false }
         );
         const exercises_token = localStorage.getItem("exercises_token");
-axios({
-  url: "http://localhost:3000/exercises",
-  method: "post",
-  data: {
-    description: this.newExercise,
-  },
-  headers: {
-    Authorization: `Bearer ${exercises_token}`,
-  },
-})
-  .then(() => {
-    alert("Cadastro com sucesso");
-    this.newExercise = "";
-  })
-  .catch(() => {
-    alert("Houve um erro ao realizar o cadastro");
-  });
-this.loadExercises();
-} catch (error) {
+        axios({
+          url: "http://localhost:3000/exercises",
+          method: "post",
+          data: {
+            description: this.newExercise,
+          },
+          headers: {
+            Authorization: `Bearer ${exercises_token}`,
+          },
+        })
+          .then(() => {
+            alert("Cadastro com sucesso");
+            this.newExercise = "";
+          })
+          .catch(() => {
+            alert("Houve um erro ao realizar o cadastro");
+          });
+        this.loadExercises();
+      } catch (error) {
         if (error instanceof yup.ValidationError) {
           console.log(error);
           this.errors = captureErrorYup(error);
-        }}
+        }
+      }
     },
 
     loadExercises() {

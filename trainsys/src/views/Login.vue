@@ -69,12 +69,8 @@ export default {
     handleLogin() {
       try {
         const schema = yup.object().shape({
-          email: yup
-            .string()
-            .required("Email é obrigatório"),
-          password: yup
-            .string()
-            .required("A senha é obrigatória"),
+          email: yup.string().required("Email é obrigatório"),
+          password: yup.string().required("A senha é obrigatória"),
         });
 
         schema.validateSync(
@@ -102,7 +98,7 @@ export default {
           .catch(() => {
             alert("Falha ao realizar login");
           });
-        } catch (error) {
+      } catch (error) {
         if (error instanceof yup.ValidationError) {
           console.log(error);
           // capturar os errors do yup

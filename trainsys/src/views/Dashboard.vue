@@ -3,21 +3,21 @@
     <v-row justify="center">
       <v-col cols="12">
         <v-card>
-          <v-card-title class="headline">Bem vindo, {{ usuarioLogado }}</v-card-title>
+          <v-card-title class="headline"
+            >Bem vindo, {{ activeUser }}</v-card-title
+          >
         </v-card>
       </v-col>
     </v-row>
 
     <v-row justify="center">
-      <v-col
-        :cols="isMobile ? 12 : 6"
-      >
+      <v-col :cols="isMobile ? 12 : 6">
         <v-card class="pa-6">
           <v-card-text>
             <v-row>
               <v-col cols="8">
                 <v-card-title class="headline">Alunos</v-card-title>
-                <div class="text-h2">{{ numeroAlunos }}</div>
+                <div class="text-h2">{{ amountStudents }}</div>
               </v-col>
               <v-col cols="4">
                 <v-avatar size="80">
@@ -34,15 +34,13 @@
         </v-card>
       </v-col>
 
-      <v-col
-        :cols="isMobile ? 12 : 6" 
-      >
+      <v-col :cols="isMobile ? 12 : 6">
         <v-card class="pa-6">
           <v-card-text>
             <v-row>
               <v-col cols="8">
                 <v-card-title class="headline">Exercícios</v-card-title>
-                <div class="text-h2">{{ numeroExercicios }}</div>
+                <div class="text-h2">{{ amountExercises }}</div>
               </v-col>
               <v-col cols="4">
                 <v-avatar size="80">
@@ -62,17 +60,16 @@
   </v-container>
 </template>
 
-
 <script>
 import axios from "axios";
 
 export default {
   data() {
     return {
-      usuarioLogado: "",
-      numeroAlunos: 0,
-      numeroExercicios: 0,
-      isMobile: false, 
+      activeUser: "",
+      amountStudents: 0,
+      amountExercises: 0,
+      isMobile: false,
     };
   },
 
@@ -83,8 +80,8 @@ export default {
         method: "GET",
       })
         .then((response) => {
-          this.numeroAlunos = response.data.amount_students;
-          this.numeroExercicios = response.data.amount_exercises;
+          this.amountStudents = response.data.amount_students;
+          this.amountExercises = response.data.amount_exercises;
         })
         .catch(() => {
           alert("Ocorreu um erro ao buscar os dados do dashboard");
@@ -94,11 +91,11 @@ export default {
 
   mounted() {
     this.loadDashboardData();
-    this.usuarioLogado = localStorage.getItem("sessions_name");
+    this.activeUser = localStorage.getItem("sessions_name");
     this.isMobile = window.innerWidth < 600;
     window.addEventListener("resize", () => {
-    this.isMobile = window.innerWidth < 600;
-  });
+      this.isMobile = window.innerWidth < 600;
+    });
   },
 };
 </script>

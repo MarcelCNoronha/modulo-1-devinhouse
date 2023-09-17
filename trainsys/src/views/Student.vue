@@ -73,7 +73,7 @@
               clearable
               @input="searchCep"
             ></v-text-field>
-            </v-col>
+          </v-col>
           <v-col cols="6">
             <v-text-field
               v-model="street"
@@ -148,7 +148,6 @@
             <v-btn type="submit" color="primary" class="mb-5">Cadastrar</v-btn>
           </v-col>
         </v-row>
-          
       </v-form>
     </v-card>
   </v-container>
@@ -247,7 +246,8 @@ export default {
         }
       }
     },
-    searchCep() {if (this.cep && this.cep.length >= 8) {
+    searchCep() {
+      if (this.cep && this.cep.length >= 8) {
         try {
           const schema = yup.object().shape({
             cep: yup.string().required("CEP é obrigatório"),
@@ -271,9 +271,9 @@ export default {
               this.province = data.uf || "";
               this.neighborhood = data.bairro || "";
               this.city = data.localidade || "";
- 
+
               this.errors.cep = [];
-              this.cepComplete = true; 
+              this.cepComplete = true;
             })
             .catch(() => {
               alert("Ocorreu um erro ao buscar os dados do CEP");
