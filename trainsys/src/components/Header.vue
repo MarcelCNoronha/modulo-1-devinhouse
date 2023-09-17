@@ -5,7 +5,7 @@
     <v-btn text to="/dashboard">Home</v-btn>
     <v-btn text to="/lista-alunos">Alunos</v-btn>
     <v-btn text to="/cadastro-exercicio">Exercicios</v-btn>
-    <v-btn text to="/login">Sair</v-btn>
+    <v-btn text to="/">Sair</v-btn>
   </v-app-bar>
 </template>
 

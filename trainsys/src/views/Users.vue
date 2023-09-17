@@ -3,7 +3,7 @@
     <v-form @submit.prevent="handleCreateAccount">
       <v-row justify="center">
         <v-col cols="12" sm="8" md="6">
-          <v-card class="pa-4 elevation-10">
+          <v-card class="pa-4 elevation-10 mt-16">
             <v-card-title class="text-center">
               <h2 class="text-uppercase mb-5" style="font-style: italic">
                 TRAINSYS
@@ -59,7 +59,7 @@
                 <v-btn type="submit" color="primary" class="mx-3"
                   >Cadastrar</v-btn
                 >
-                <router-link to="/login"
+                <router-link to="/"
                   ><v-btn text color="primary" class="mx-3"
                     >Voltar</v-btn
                   ></router-link
@@ -119,10 +119,8 @@ export default {
             verifyPassword: this.verifyPassword,
             type_plan: this.type_plan,
           },
-          { abortEarly: false } // importante
+          { abortEarly: false }
         );
-
-        // Cadastro de usuario
 
         axios({
           url: "http://localhost:3000/users",

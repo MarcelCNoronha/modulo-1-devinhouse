@@ -13,16 +13,17 @@
         <v-card>
           <v-card-text>
             <v-form>
-              <v-row align="center" class="align-center">
+              <v-row class="align-center">
                 <v-col cols="10">
                   <v-text-field
                     v-model="newExercise"
                     label="Digite o nome do exercício"
-                    class="custom-text-field"
+                    :error-messages="errors.newExercise"
+                    outlined
                   ></v-text-field>
                 </v-col>
-                <v-col cols="2">
-                  <v-btn @click="addItem" color="primary" class="mx-auto">
+                <v-col cols="2" class="text-right">
+                  <v-btn @click="addItem" color="primary">
                     Cadastrar
                   </v-btn>
                 </v-col>
@@ -54,37 +55,55 @@
 
 <script>
 import axios from "axios";
+import * as yup from "yup";
+import { captureErrorYup } from "../utils/captureErrorYup.js";
 
 export default {
   data() {
     return {
       newExercise: "",
       exercises: [],
+      errors: {},
     };
   },
   methods: {
     addItem() {
-      const exercises_token = localStorage.getItem("exercises_token");
-
-      axios({
-        url: "http://localhost:3000/exercises",
-        method: "post",
-        data: {
-          description: this.newExercise,
-        },
-        headers: {
-          Authorization: `Bearer ${exercises_token}`,
-        },
-      })
-        .then(() => {
-          alert("Cadastro com sucesso");
-          this.newExercise = "";
-        })
-        .catch(() => {
-          alert("Houve um erro ao realizar o cadastro");
+      try{
+        const schema = yup.object().shape({
+          newExercise: yup.string().min(1,"O exercicio não pode ser vazio"),
         });
-      this.loadExercises();
+        schema.validateSync(
+          {
+            newExercise: this.newExercise,
+          },
+          { abortEarly: false }
+        );
+        const exercises_token = localStorage.getItem("exercises_token");
+axios({
+  url: "http://localhost:3000/exercises",
+  method: "post",
+  data: {
+    description: this.newExercise,
+  },
+  headers: {
+    Authorization: `Bearer ${exercises_token}`,
+  },
+})
+  .then(() => {
+    alert("Cadastro com sucesso");
+    this.newExercise = "";
+  })
+  .catch(() => {
+    alert("Houve um erro ao realizar o cadastro");
+  });
+this.loadExercises();
+} catch (error) {
+        if (error instanceof yup.ValidationError) {
+          console.log(error);
+          this.errors = captureErrorYup(error);
+        }}
     },
+
     loadExercises() {
       const token = localStorage.getItem("exercises_token");
 
@@ -110,4 +129,11 @@ export default {
 </script>
 
 <style scoped>
+.message-error {
+  color: red;
+  margin: 4px;
+}
+.input-error {
+  border-color: red;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header />
+    <Header v-if="mostrarHeader" />
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -16,6 +16,12 @@ export default {
   components: {
     Header,
     Footer,
+  },
+  computed: {
+    mostrarHeader() {
+      const rotasSemHeader = ["/", "/cadastro-usuario"];
+      return !rotasSemHeader.includes(this.$route.path);
+    },
   },
 };
 </script>

@@ -20,6 +20,8 @@
                 <v-text-field
                   v-model="busca"
                   label="Buscar por nome"
+                  :error-messages="errors.busca"
+                  outlined
                 ></v-text-field>
               </v-col>
               <v-col cols="2" class="text-right">
@@ -64,12 +66,15 @@
 
 <script>
 import axios from "axios";
+import * as yup from "yup";
+import { captureErrorYup } from "../utils/captureErrorYup.js";
 
 export default {
   data() {
     return {
       students: [],
       busca: "",
+      errors: {},
     };
   },
   methods: {
@@ -90,15 +95,30 @@ export default {
           alert("Ocorreu um erro ao buscar os alunos");
         });
     },
-    filtrarAlunos() {
-      if (this.busca.trim() === "") {
-        this.carregarAlunos();
-      } else {
-        this.students = this.students.filter((student) =>
-          student.name.toLowerCase().includes(this.busca.toLowerCase())
-        );
-      }
-    },
+
+filtrarAlunos() {
+  try {
+    const schema = yup.object().shape({
+      busca: yup.string().min(1,"A busca não pode ser vazio"),
+});
+schema.validateSync(
+      {
+        busca: this.busca,
+      },
+      { abortEarly: false }
+    );
+    
+      this.students = this.students.filter((student) =>
+      student.name.toLowerCase().includes(this.busca.toLowerCase())
+    )
+       
+  } catch (error) {
+    if (error instanceof yup.ValidationError) {
+      console.log(error);
+      this.errors = captureErrorYup(error);
+    }
+  }
+},
     redirecionarMontarTreino(id) {
       this.$router.push({ path: `/cadastro-treino/${id}` });
     },
@@ -111,3 +131,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.message-error {
+  color: red;
+  margin: 4px;
+}
+.input-error {
+  border-color: red;
+}
+</style>

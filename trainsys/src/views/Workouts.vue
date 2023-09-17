@@ -128,49 +128,55 @@ export default {
     };
   },
   methods: {
-    async handleCreateStudent() {
-  try {
-    if (!this.exercise_id) {
-      alert("Selecione um exercício válido");
-      return;
-    }
-
-    const response = await axios.post("http://localhost:3000/workouts", {
-      student_id: this.$route.params.student_id,
-      exercise_id: this.exercise_id,
-      repetitions: this.repetitions,
-      weight: this.weight,
-      break_time: this.break_time,
-      day: this.selectedDay,
-      observations: this.observations,
-    });
-
-    alert("Treino cadastrado com sucesso");
-    this.$router.push("/lista-alunos");
-  } catch (error) {
-    console.error(error);
-    alert("Houve uma falha ao tentar cadastrar");
-  }
-},
-
-
-    async searchExercises() {
-      if (!this.exercisesLoaded) {
-        try {
-          const response = await axios.get("http://localhost:3000/exercises");
-          this.exerciseOptions = response.data.map((exercise) => ({
-            description: exercise.description,
-            id: exercise.id,
-          }));
-
-          this.exercisesLoaded = true;
-        } catch (error) {
-          console.error(error);
-          alert("Ocorreu um erro ao buscar os Exercicios");
-        }
+  async handleCreateStudent() {
+    try {
+      if (!this.exercise_id) {
+        alert("Selecione um exercício válido");
+        return;
       }
-    },
+
+      const response = await axios({
+        url: "http://localhost:3000/workouts",
+        method: "POST",
+        data: {
+          student_id: this.$route.params.student_id,
+          exercise_id: this.exercise_id,
+          repetitions: this.repetitions,
+          weight: this.weight,
+          break_time: this.break_time,
+          day: this.selectedDay,
+          observations: this.observations,
+        },
+      });
+
+      alert("Treino cadastrado com sucesso");
+      this.$router.push("/lista-alunos");
+    } catch (error) {
+      console.error(error);
+      alert("Houve uma falha ao tentar cadastrar");
+    }
   },
+
+  async searchExercises() {
+    if (!this.exercisesLoaded) {
+      try {
+        const response = await axios({
+          url: "http://localhost:3000/exercises",
+          method: "GET",
+        });
+        this.exerciseOptions = response.data.map((exercise) => ({
+          description: exercise.description,
+          id: exercise.id,
+        }));
+
+        this.exercisesLoaded = true;
+      } catch (error) {
+        console.error(error);
+        alert("Ocorreu um erro ao buscar os Exercicios");
+      }
+    }
+  },
+},
   mounted() {
     this.searchExercises();
   },
