@@ -35,9 +35,9 @@
               }}</span>
             </v-card-text>
 
-            <div class="d-flex justify-center">
-              <v-btn type="submit" color="primary"> Login </v-btn>
-            </div>
+            <v-col cols="12" class="d-flex justify-center">
+              <v-btn width="300" type="submit" color="primary"> Login </v-btn>
+            </v-col>
 
             <v-card-actions>
               <div class="text-center">

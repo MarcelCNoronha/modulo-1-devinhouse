@@ -8,28 +8,29 @@
           </v-avatar>
           <v-card-title class="headline ml-2">Alunos</v-card-title>
         </div>
-        <v-btn to="/cadastro-aluno" color="primary"> Novo </v-btn>
+        <v-btn width="150" to="/cadastro-aluno" color="primary"> Novo </v-btn>
       </v-col>
     </v-row>
     <v-row justify="center">
       <v-col cols="12">
         <v-card>
           <v-card-text>
-            <v-row>
-              <v-col cols="10">
+
+            <v-row justify="space-around" align="stretch">
+              <v-col cols="8">
                 <v-text-field
                   cols="10"
-                  breakpoint="sm"
                   v-model="search"
                   label="Buscar por nome"
                   :error-messages="errors.search"
                   outlined
                 ></v-text-field>
               </v-col>
-              <v-col cols="2" breakpoint="sm">
+              <v-col cols="4" class="text-right">
                 <v-btn @click="filterStudents" color="primary"> Buscar </v-btn>
               </v-col>
             </v-row>
+
             <v-table>
               <thead>
                 <tr>
@@ -42,19 +43,26 @@
                     <h3>{{ student.name }}</h3>
                   </td>
                   <td class="text-right">
-                    <v-btn
+                    <v-row class="my-3">
+                      <v-col>
+                        <v-btn
+                      width="200"
                       @click="redirecionarMontarTreino(student.id)"
                       color="primary"
-                      class="mr-3"
                     >
                       Montar Treino
                     </v-btn>
-                    <v-btn
+                      </v-col>
+                      <v-col>
+                        <v-btn
+                      width="200"
                       @click="redirecionarAluno(student.id)"
                       color="primary"
                     >
                       Ver
                     </v-btn>
+                      </v-col>
+                    </v-row>
                   </td>
                 </tr>
               </tbody>

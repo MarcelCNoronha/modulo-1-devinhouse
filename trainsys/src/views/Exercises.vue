@@ -13,8 +13,9 @@
         <v-card>
           <v-card-text>
             <v-form>
-              <v-row class="align-center">
-                <v-col cols="10">
+
+              <v-row justify="space-around" align="stretch">
+                <v-col cols="8">
                   <v-text-field
                     v-model="newExercise"
                     label="Digite o nome do exercício"
@@ -22,10 +23,11 @@
                     outlined
                   ></v-text-field>
                 </v-col>
-                <v-col cols="2" class="text-right">
+                <v-col cols="4" class="text-right">
                   <v-btn @click="addItem" color="primary"> Cadastrar </v-btn>
                 </v-col>
               </v-row>
+
             </v-form>
           </v-card-text>
         </v-card>
