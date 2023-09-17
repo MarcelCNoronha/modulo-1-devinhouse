@@ -18,13 +18,15 @@
             <v-row>
               <v-col cols="10">
                 <v-text-field
+                  cols="10"
+                  breakpoint="sm"
                   v-model="search"
                   label="Buscar por nome"
                   :error-messages="errors.search"
                   outlined
                 ></v-text-field>
               </v-col>
-              <v-col cols="2" class="text-right">
+              <v-col cols="2" breakpoint="sm">
                 <v-btn @click="filterStudents" color="primary"> Buscar </v-btn>
               </v-col>
             </v-row>

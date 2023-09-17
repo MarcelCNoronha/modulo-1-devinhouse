@@ -134,7 +134,7 @@ export default {
         })
           .then(() => {
             alert("Cadastrado com sucesso");
-            this.$router.push("/login");
+            this.$router.push("/");
           })
           .catch((error) => {
             console.log(error);

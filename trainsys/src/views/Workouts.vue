@@ -1,18 +1,14 @@
 <template>
   <v-container>
     <v-card>
-      <v-row>
-        <v-col cols="2">
-          <v-avatar size="100">
-            <v-icon size="100">mdi-account-supervisor</v-icon>
-          </v-avatar>
-        </v-col>
-        <v-col cols="10">
-          <v-card-text class="d-flex align-center">
-            <v-card-title class="headline">Alunos</v-card-title>
-          </v-card-text>
-        </v-col>
-      </v-row>
+      <v-row justify="center">
+      <v-col cols="11" class="d-flex align-center">
+        <v-avatar size="100">
+          <v-icon size="100">mdi-dumbbell</v-icon>
+        </v-avatar>
+        <v-card-title class="headline ml-2">Treino </v-card-title>
+      </v-col>
+    </v-row>
 
       <v-form @submit.prevent="handleCreateTrain">
         <v-row>

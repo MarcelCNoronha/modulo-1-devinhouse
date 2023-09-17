@@ -1,12 +1,15 @@
 <template>
   <v-container>
+
     <v-row justify="center">
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="headline"
-            >Aluno - {{ studentName }}</v-card-title
-          >
-        </v-card>
+      <v-col cols="11" class="d-flex justify-space-between align-center">
+        <div class="d-flex align-center">
+          <v-avatar size="100">
+            <v-icon size="100">mdi-account-supervisor</v-icon>
+          </v-avatar>
+          <v-card-title class="headline ml-2">Aluno - {{ studentName }}</v-card-title>
+        </div>
+        <v-btn to="/cadastro-aluno" color="primary"> Novo </v-btn>
       </v-col>
     </v-row>
 

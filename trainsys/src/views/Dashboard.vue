@@ -17,18 +17,26 @@
             <v-row>
               <v-col cols="8">
                 <v-card-title class="headline">Alunos</v-card-title>
-                <div class="text-h2">{{ amountStudents }}</div>
+                <v-card-text class="text-h2 mt-5">{{ amountStudents }}</v-card-text>
               </v-col>
               <v-col cols="4">
-                <v-avatar size="80">
-                  <v-icon size="80">mdi-account-supervisor</v-icon>
+                <v-avatar size="100">
+                  <v-icon size="100">mdi-account-supervisor</v-icon>
                 </v-avatar>
               </v-col>
             </v-row>
             <v-row>
-              <router-link to="/cadastro-aluno">
+              <v-col>
+                <router-link to="/cadastro-aluno">
                 <v-btn color="primary">Cadastrar Aluno</v-btn>
               </router-link>
+              </v-col>
+              <v-col>
+                <router-link to="/lista-alunos">
+                <v-btn color="primary">Visualizar Alunos</v-btn>
+              </router-link>
+              </v-col>
+
             </v-row>
           </v-card-text>
         </v-card>
@@ -40,18 +48,20 @@
             <v-row>
               <v-col cols="8">
                 <v-card-title class="headline">Exercícios</v-card-title>
-                <div class="text-h2">{{ amountExercises }}</div>
+                <v-card-text class="text-h2 mt-5">{{ amountExercises }}</v-card-text>
               </v-col>
               <v-col cols="4">
-                <v-avatar size="80">
-                  <v-icon size="80">mdi-dumbbell</v-icon>
+                <v-avatar size="100">
+                  <v-icon size="100">mdi-dumbbell</v-icon>
                 </v-avatar>
               </v-col>
             </v-row>
             <v-row>
-              <router-link to="/cadastro-exercicio">
+              <v-col>
+                <router-link to="/cadastro-exercicio">
                 <v-btn color="primary">Cadastrar Exercício</v-btn>
               </router-link>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-card>

@@ -42,7 +42,7 @@
           <v-col cols="6">
             <v-text-field
               v-model="contact"
-              label="Contato"
+              label="Celular"
               outlined
               :error-messages="errors.contact"
               required
@@ -177,13 +177,16 @@ export default {
   methods: {
     handleCreateStudent() {
       try {
-        // 1 - CRIAR SCHEMA VALIDATION
         const schema = yup.object().shape({
           name: yup.string().required("Nome é obrigatório"),
           email: yup
             .string()
             .email("Email não é valido")
             .required("Email é obrigatório"),
+          contact: yup.number().required("O telefone é obrigatório"),
+          cep: yup.string().required("CEP é obrigatório"),
+          number: yup.string().required("O numero é obrigatório"),
+          date_birth: yup.string().required("Data de nascimento é obrigatório"),
         });
 
         schema.validateSync(
