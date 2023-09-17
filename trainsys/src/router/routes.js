@@ -24,9 +24,9 @@ export const routes = createRouter({
       component: Users
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard
+      path: '/cadastro-aluno',
+      name: 'Student',
+      component: Student
     },
     {
       path: '/cadastro-exercicio',
@@ -34,15 +34,17 @@ export const routes = createRouter({
       component: Exercises
     },
     {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
+    },
+
+    {
       path: '/lista-alunos',
       name: 'StudentList',
       component: StudentList
     },
-    {
-      path: '/cadastro-aluno',
-      name: 'Student',
-      component: Student
-    },
+
     {
       path: '/cadastro-treino/:student_id',
       name: 'Workouts',
@@ -53,6 +55,5 @@ export const routes = createRouter({
       name: 'WorkoutsView',
       component: WorkoutsView
     },
-
   ]
 })

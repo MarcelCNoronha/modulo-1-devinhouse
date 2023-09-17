@@ -7,7 +7,7 @@ Problema resolvido
 O Trainsys resolve o problema de falta de um sistema de controle de alunos e treinos eficiente. Ele permite que as academias de ginástica automatizem tarefas como registro de alunos, criação de treinos e acompanhamento do progresso.
 
 Tecnologias utilizadas
-Frontend: Vue.js, Vuetify, Axios
+Frontend: Vue.js, Vuetify, Axios, Yup
 Backend: Node.js, Express, Cors
 Banco de dados: SQLite3
 
