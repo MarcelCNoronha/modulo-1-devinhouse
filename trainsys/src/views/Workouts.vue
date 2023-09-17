@@ -18,12 +18,12 @@
         <v-row>
           <v-col cols="12">
             <v-autocomplete
-              v-model="exerciseSelected"
-              label="Selecione o Exercício"
-              :items="exerciseOptions"
-              item-title="description"
-              item-value="id"
-            ></v-autocomplete>
+          v-model="exercise_id" 
+          label="Selecione o Exercício"
+          :items="exerciseOptions"
+          item-title="description"
+          item-value="id"
+        ></v-autocomplete>
           </v-col>
         </v-row>
 
@@ -111,13 +111,13 @@ export default {
       weight: "",
       break_time: "",
       day: [
-        "Domingo",
-        "Segunda-feira",
-        "Terça-feira",
-        "Quarta-feira",
-        "Quinta-feira",
-        "Sexta-feira",
-        "Sábado",
+      "Domingo",
+      "Segunda",
+      "Terça",
+      "Quarta",
+      "Quinta",
+      "Sexta",
+      "Sábado",
       ],
       observations: "",
       selectedDay: null,
@@ -128,52 +128,32 @@ export default {
     };
   },
   methods: {
-    handleCreateStudent() {
-      try {
-        const schema = yup.object().shape({
-          student_id: yup.string().required("Id do estudante é obrigatório"),
-          exercise_id: yup.string().required("Id do exercicio é obrigatório"),
-          repetitions: yup.string().required("Repetições é obrigatório"),
-          weight: yup.string().required("Peso é obrigatório"),
-          break_time: yup.string().required("Tempo é obrigatório"),
-          day: yup.string().required("Dia é obrigatório"),
-          observations: yup.string().required("Observações é obrigatório"),
-        });
+    async handleCreateStudent() {
+  try {
+    if (!this.exercise_id) {
+      alert("Selecione um exercício válido");
+      return;
+    }
 
-        schema.validate(
-          {
-            student_id: this.$route.params.student_id,
-            exercise_id: this.exercise_id,
-            repetitions: this.repetitions,
-            weight: this.weight,
-            break_time: this.break_time,
-            day: this.selectedDay, // Use selectedDay em vez de day
-            observations: this.observations,
-          },
-          { abortEarly: false }
-        );
+    const response = await axios.post("http://localhost:3000/workouts", {
+      student_id: this.$route.params.student_id,
+      exercise_id: this.exercise_id,
+      repetitions: this.repetitions,
+      weight: this.weight,
+      break_time: this.break_time,
+      day: this.selectedDay,
+      observations: this.observations,
+    });
 
-        axios.post("http://localhost:3000/workouts", {
-          student_id: this.student_id,
-          exercise_id: this.exercise_id,
-          repetitions: this.repetitions,
-          weight: this.weight,
-          break_time: this.break_time,
-          day: this.selectedDay,
-          observations: this.observations,
-        });
+    alert("Treino cadastrado com sucesso");
+    this.$router.push("/lista-alunos");
+  } catch (error) {
+    console.error(error);
+    alert("Houve uma falha ao tentar cadastrar");
+  }
+},
 
-        alert("Treino cadastrado com sucesso");
-        this.$router.push("/lista-alunos");
-      } catch (error) {
-        if (error instanceof yup.ValidationError) {
-          this.errors = captureErrorYup(error);
-        } else {
-          console.error(error);
-          alert("Houve uma falha ao tentar cadastrar");
-        }
-      }
-    },
+
     async searchExercises() {
       if (!this.exercisesLoaded) {
         try {
@@ -183,7 +163,6 @@ export default {
             id: exercise.id,
           }));
 
-          // Agora, definimos exercisesLoaded como verdadeiro para evitar recarregamento
           this.exercisesLoaded = true;
         } catch (error) {
           console.error(error);

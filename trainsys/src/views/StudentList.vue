@@ -33,25 +33,27 @@
                 </tr>
               </thead>
               <tbody>
-      <tr v-for="student in students" :key="student.id">
-        <td><h3>{{ student.name }}</h3></td>
-        <td class="text-right">
-          <v-btn
-            @click="redirecionarMontarTreino(student.id)"
-            color="primary"
-            class="mr-3"
-          >
-            Montar Treino
-          </v-btn>
-          <v-btn
-            @click="redirecionarAluno(student.id)"
-            color="primary"
-          >
-            Ver
-          </v-btn>
-        </td>
-      </tr>
-    </tbody>
+                <tr v-for="student in students" :key="student.id">
+                  <td>
+                    <h3>{{ student.name }}</h3>
+                  </td>
+                  <td class="text-right">
+                    <v-btn
+                      @click="redirecionarMontarTreino(student.id)"
+                      color="primary"
+                      class="mr-3"
+                    >
+                      Montar Treino
+                    </v-btn>
+                    <v-btn
+                      @click="redirecionarAluno(student.id)"
+                      color="primary"
+                    >
+                      Ver
+                    </v-btn>
+                  </td>
+                </tr>
+              </tbody>
             </v-table>
           </v-card-text>
         </v-card>

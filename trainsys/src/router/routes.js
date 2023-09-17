@@ -7,6 +7,7 @@ import Exercises from "../views/Exercises.vue"
 import StudentList from "../views/StudentList.vue"
 import Student from "../views/Student.vue"
 import Workouts from "../views/Workouts.vue"
+import WorkoutsView from "../views/WorkoutsView.vue"
 
 
 
@@ -52,6 +53,11 @@ export const routes = createRouter({
       path: '/cadastro-treino/:student_id',
       name: 'Workouts',
       component: Workouts
+    },
+    {
+      path: '/visualizar-treinos/:student_id',
+      name: 'WorkoutsView',
+      component: WorkoutsView
     },
 
   ]
