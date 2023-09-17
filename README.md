@@ -10,8 +10,6 @@ Tecnologias utilizadas
 Frontend: Vue.js, Vuetify, Axios
 Backend: Node.js, Express, Cors
 Banco de dados: SQLite3
-Diagrama de arquitetura
-
 
 Como executar
 Para executar o Trainsys, siga os seguintes passos:
